@@ -5,10 +5,10 @@ text = open('sd.txt', encoding='utf-8').read()
 lower_case = text.lower()
 #removing punctuations
 clean_data = lower_case.translate(str.maketrans('','',string.punctuation))
-print(clean_data)
+#print(clean_data)
 #Tokenisation basically means separating words form a sentence and storing them in a list
 tokenzised_words = clean_data.split()
-print(tokenzised_words)
+#print(tokenzised_words)
 #stop words: don't add any emotion or have any significance in emotional analysis
 stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself",
               "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
@@ -27,3 +27,9 @@ for i in tokenzised_words:
         final_words.append(i)
         
 print(final_words)
+
+with open('emotions.txt','r') as file:
+    #i represents line yaha pe
+    for i in file:
+        compact_line = i.replace("\n","").replace(",","").replace("'","").strip()   #strip : word ke pehle wala space nikal ne ke liye
+        print(compact_line)
