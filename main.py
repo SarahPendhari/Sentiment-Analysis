@@ -1,4 +1,6 @@
 import string
+from collections import Counter
+import matplotlib.pyplot as pt
 #Opening the file sd 
 text = open('sd.txt', encoding='utf-8').read()
 #Convert everything to lowercase
@@ -26,10 +28,25 @@ for i in tokenzised_words:
     if i not in stop_words:
         final_words.append(i)
         
-print(final_words)
-
+#print(final_words)
+emotions_list = []
 with open('emotions.txt','r') as file:
     #i represents line yaha pe
     for i in file:
         compact_line = i.replace("\n","").replace(",","").replace("'","").strip()   #strip : word ke pehle wala space nikal ne ke liye
-        print(compact_line)
+        #print(compact_line)
+        #splitting: word before ':' goes into word and after ':' goes into emotion
+        word,emotion = compact_line.split(':')
+        #print("Word: " + word +"  "+ "Emotion: " + emotion)
+        
+        if word in final_words:
+            emotions_list.append(word)
+            
+#print(emotions_list)
+c = Counter(emotions_list)
+#print(c)
+fig, ax = pt.subplots()
+ax.bar(c.keys(),c.values())
+fig.autofmt_xdate()
+pt.savefig('graph.png')
+pt.show()
